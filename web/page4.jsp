@@ -14,5 +14,10 @@
     <body>
         <h1>Page4</h1>
         ${info}
+        <form action="hello" method="POST">
+            Имя: <input type="text" name="name"><br>
+            Фамилия: <input type="text" name="lastname"><br>
+            <input type="submit" value="Go">
+        </form>
     </body>
 </html>

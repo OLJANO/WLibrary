@@ -5,12 +5,15 @@
  */
 package servlets;
 
+import entity.Book;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import session.BookFacade;
 
 /**
  *
@@ -22,11 +25,13 @@ import javax.servlet.http.HttpServletResponse;
     "/page2",
     "/page3",
     "/page4",
+    "/hello",
+    "/createBook",
     
     
 })
 public class MyServlet extends HttpServlet {
-
+@EJB BookFacade bookFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,6 +47,13 @@ public class MyServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String path = request.getServletPath();
         switch (path) {
+            case "/createBook":
+                Book book = new Book("Война и мир","Лев Толстой", 2010, 5);
+                bookFacade.create(book);
+                request.setAttribute("info", "Книга создана");
+                request.getRequestDispatcher("/index.jsp")
+                        .forward(request, response);
+                break;
             case "/login":
                 String login = request.getParameter("login");
                 String password = request.getParameter("password");
@@ -74,6 +86,13 @@ public class MyServlet extends HttpServlet {
                 info = "Привет из сервлета!";
                 request.setAttribute("info", info);
                 request.getRequestDispatcher("/page4.jsp").forward(request, response);
+                break;
+            case "/hello":
+                name = request.getParameter("name");
+                lastname = request.getParameter("lastname");
+                request.setAttribute("info", "Привет, "+name+" "+lastname);
+                request.getRequestDispatcher("/index.jsp")
+                        .forward(request, response);
                 break;
         }
         

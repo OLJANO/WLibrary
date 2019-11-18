@@ -14,11 +14,13 @@
     <body>
         <H1>Привеееет, группа SKTVp18!</H1>
         <p>${info}</p>
+        <p>Создана книга: ${book.title}</p>
         <p>Изучаем как работает вебприложение на Java</p>
         <a href="page1">Page1</a><br>
         <a href="page2?name=Ivan&lastname=Ivanov">Page2</a><br>
         <a href="page3">Page3</a><br>
         <a href="page4">Page4</a><br>
-        <a href="createBook">Создать книгу</a>
+        <a href="newBook">Создать книгу</a><br>
+        <a href="newReader">Создать читателя</a>
     </body>
 </html>

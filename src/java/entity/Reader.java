@@ -30,6 +30,13 @@ public class Reader implements Serializable{
     public Reader() {
     }
 
+    public Reader(String name, String lastname, String email) {
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+    }
+    
+    
     public String getName() {
         return name;
     }

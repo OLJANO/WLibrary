@@ -6,6 +6,7 @@
 package servlets;
 
 import entity.Book;
+import entity.Reader;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.BookFacade;
+import session.ReaderFacade;
 
 /**
  *
@@ -26,12 +28,17 @@ import session.BookFacade;
     "/page3",
     "/page4",
     "/hello",
-    "/createBook",
+    "/newBook",
+    "/addBook",
+    "/newReader",
+    "/addReader",
+    
     
     
 })
 public class MyServlet extends HttpServlet {
 @EJB BookFacade bookFacade;
+@EJB ReaderFacade readerFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,10 +54,33 @@ public class MyServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String path = request.getServletPath();
         switch (path) {
-            case "/createBook":
-                Book book = new Book("Война и мир","Лев Толстой", 2010, 5);
+            case "/newBook":
+                request.getRequestDispatcher("/WEB-INF/newBook.jsp")
+                        .forward(request, response);
+                break;
+            case "/addBook":
+                String title = request.getParameter("title");
+                String author = request.getParameter("author");
+                String year = request.getParameter("year");
+                String quantity = request.getParameter("quantity");
+                Book book = new Book(title, author, Integer.parseInt(year), Integer.parseInt(quantity));
                 bookFacade.create(book);
                 request.setAttribute("info", "Книга создана");
+                request.setAttribute("book", book);
+                request.getRequestDispatcher("/index.jsp")
+                        .forward(request, response);
+                break;
+                case "/newReader":
+                request.getRequestDispatcher("/WEB-INF/newReader.jsp")
+                        .forward(request, response);
+                break;
+            case "/addReader":
+                String name = request.getParameter("name");
+                String lastname = request.getParameter("lastname");
+                String email = request.getParameter("email");
+                Reader reader = new Reader(name, lastname, email);
+                readerFacade.create(reader);
+                request.setAttribute("info", "Пользователь создан");
                 request.getRequestDispatcher("/index.jsp")
                         .forward(request, response);
                 break;
@@ -71,8 +101,8 @@ public class MyServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/page1.jsp").forward(request, response);
                 break;
             case "/page2":
-                String name = request.getParameter("name");
-                String lastname = request.getParameter("lastname");
+                name = request.getParameter("name");
+                lastname = request.getParameter("lastname");
                 info = "Привет из сервлета!";
                 request.setAttribute("info", info);
                 request.setAttribute("page", name + " " + lastname);

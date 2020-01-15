@@ -10,16 +10,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Выдача книг читателю</title>
+        <title>Выдать книгу читателю</title>
     </head>
     <body>
+        <h1>Выдать книгу</h1>
         <p>${info}</p>
-<<<<<<< HEAD
          <a href="index.jsp">Главная страница</a><br>
-=======
->>>>>>> 6f0210d76dd8e2b63dc0e2ef630ee75f37e174ea
         <form action="takeOnBook" method="POST">
-            <h2>Список книг</h2>
+            <h2>Список книг:</h2>
             <select name="bookId">
                 <c:forEach var="book" items="${listBooks}" varStatus="status">
                     <option value="${book.id}">
@@ -28,7 +26,7 @@
                 </c:forEach>
             </select>
 
-            <h2>Список читателей</h2> 
+            <h2>Список читателей:</h2> 
             <select name="readerId">
                 <c:forEach var="reader" items="${listReaders}" varStatus="status">
                     <option value="${reader.id}">
@@ -36,6 +34,7 @@
                     </option>
                 </c:forEach>
             </select>
+            <br>
             <input type="submit" value="Выдать книгу">
         </form>  
     </body>

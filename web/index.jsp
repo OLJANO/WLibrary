@@ -12,9 +12,8 @@
         <title>Библиотека группы SKTVp18</title>
     </head>
     <body>
-        <H1>Добро пожаловать в SKTVp18Library!</H1>
+        <H1>Добро пожаловать в SKTVp18WebLibrary!</H1>
         <p>${info}</p>
-        <p>Изучаем как работает вебприложение на Java</p>
         <a href="showLogin">Вход</a><br>
         <a href="newBook">Создать книгу</a><br>
         <a href="listBooks">Список книг</a><br>
@@ -22,6 +21,5 @@
         <a href="listReaders">Список читателей</a><br>
         <a href="showTakeOnBook">Выдать книгу</a><br>
         <a href="showReturnBook">Вернуть книгу</a><br>
-
     </body>
 </html>

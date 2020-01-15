@@ -9,15 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Новая книга</title>
+        <title>Новый читатель</title>
     </head>
     <body>
-        <h1>Создать книгу</h1>
+        <h1>Регистрация</h1>
         <form action="addReader" method="POST">
             Имя: <input type="text" name="name"><br>
             фамилия: <input type="text" name="lastname"><br>
-            Год рождения: <input type="text" name="email"><br>
-            <input type="submit" value="Создать книгу"><br>
+            email: <input type="text" name="email"><br>
+            Логин: <input type="text" name="login"><br>
+            Пароль: <input type="password" name="password"><br>
+            <input type="submit" value="Создать пользователя"><br>
         </form>
     </body>
 </html>

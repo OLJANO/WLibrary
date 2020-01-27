@@ -12,7 +12,7 @@
         <title>Вход в систему</title>
     </head>
     <body>
-        <H1>Введите логин и поароль</H1>
+        <H1>Введите логин и пароль</H1>
         ${info}
         <form action="login" method="POST">
             Login: <input type="text" name="login"><br>

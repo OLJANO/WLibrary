@@ -8,7 +8,9 @@ package servlets;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import entity.Role;
 import entity.User;
+import entity.UserRoles;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -22,15 +24,16 @@ import javax.servlet.http.HttpSession;
 import session.BookFacade;
 import session.HistoryFacade;
 import session.ReaderFacade;
+import session.RoleFacade;
 import session.UserFacade;
+import session.UserRolesFacade;
 import utils.EncryptPass;
 
 /**
  *
  * @author user
  */
-@WebServlet(name = "AdminController", urlPatterns = {
-    
+@WebServlet(name = "AdminController",loadOnStartup = 1, urlPatterns = {
     "/newBook",
     "/addBook",
     "/listReaders",
@@ -42,6 +45,45 @@ public class AdminController extends HttpServlet {
 @EJB ReaderFacade readerFacade;
 @EJB HistoryFacade historyFacade;
 @EJB UserFacade userFacade;
+@EJB RoleFacade roleFacade;
+@EJB UserRolesFacade userRolesFacade;
+
+    @Override
+    public void init() throws ServletException {
+        List<User> listUsers = userFacade.findAll();
+        if(!listUsers.isEmpty()) return;
+        Reader reader = new Reader("Juri", "Melnikov", "admin@ivkhk-dev.ee");
+        readerFacade.create(reader);
+        String password = "123123";
+        EncryptPass ep = new EncryptPass();
+        String salts = ep.getSalts();
+        password = ep.getEncryptPass(password, salts);
+        User user = new User("admin", password, salts, reader);
+        userFacade.create(user);
+        
+        UserRoles userRoles = new UserRoles();
+        userRoles.setUser(user);
+        
+        Role role = new Role();
+        role.setRoleName("ADMIN");
+        roleFacade.create(role);
+        userRoles.setRole(role);
+        userRolesFacade.create(userRoles);
+        
+        role.setRoleName("MANAGER");
+        roleFacade.create(role);
+        userRoles.setRole(role);
+        userRolesFacade.create(userRoles);
+        
+        role.setRoleName("USER");
+        roleFacade.create(role);
+        userRoles.setRole(role);
+        userRolesFacade.create(userRoles);
+        
+    }
+
+
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

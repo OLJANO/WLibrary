@@ -91,7 +91,7 @@ public class UserController extends HttpServlet {
                 request.setAttribute("info",
                         "Книга \""
                         +book.getTitle()
-                        +"\" выдана читателю: "
+                        +"\" выдана читателю -  "
                         +reader.getName()
                         +" "+reader.getLastname()
                 );
